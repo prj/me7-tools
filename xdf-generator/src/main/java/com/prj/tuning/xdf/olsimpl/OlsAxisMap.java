@@ -77,6 +77,11 @@ public class OlsAxisMap extends XdfTable {
           public String getXdfAddress() {
             return getUniqueId();
           }
+
+          @Override
+          public String getTypeFlags() {
+            return "0x02";
+          }
         };
       }
 

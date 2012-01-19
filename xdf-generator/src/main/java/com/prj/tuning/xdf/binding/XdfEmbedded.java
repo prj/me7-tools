@@ -11,5 +11,8 @@ public abstract class XdfEmbedded {
 
   @XmlAttribute(name = "mmedelementsizebits")
   public abstract int getXdfWidth();
+  
+  @XmlAttribute(name = "mmedtypeflags")
+  public abstract String getTypeFlags();
 
 }
