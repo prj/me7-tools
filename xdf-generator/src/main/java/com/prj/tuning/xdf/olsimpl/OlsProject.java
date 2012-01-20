@@ -14,14 +14,16 @@ import com.prj.tuning.xdf.binding.XdfTable;
 
 public class OlsProject extends XdfProject {
   private Project project;
+  private OlsHeader header;
 
   public OlsProject(Project project) {
     this.project = project;
   }
 
   @Override
-  public XdfHeader getXdfHeader() {
-    return new OlsHeader(project.getHeader());
+  public final XdfHeader getXdfHeader() {
+    if (header == null) this.header = new OlsHeader(project);
+    return header;
   }
 
   @Override
@@ -47,7 +49,7 @@ public class OlsProject extends XdfProject {
         axes.add(map.getyAxis().getAddress());
       }
 
-      tables.add(new OlsMap(map));
+      tables.add(new OlsMap(map, project.getFolders().size() > 254));
     }
     return tables;
   }

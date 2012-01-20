@@ -15,6 +15,7 @@ import com.prj.tuning.mappack.util.BinaryUtil;
 public class Project {
   private Header header;
   private Collection<PMap> maps;
+  private Collection<Folder> folders;
   private URL projectUrl;
   private ByteBuffer projectData;
   private boolean parsed;
@@ -38,10 +39,17 @@ public class Project {
         maps = new HashSet<PMap>();
 
         for (int i = 0; i < header.getMapCount(); i++) {
-          PMap map = PMap.fromBuffer(projectData);
-          maps.add(map);
+          maps.add(PMap.fromBuffer(projectData));
         }
 
+        BinaryUtil.skip(projectData, 12);
+        
+        int folderCount = projectData.getInt();
+        folders = new HashSet<Folder>();
+        
+        for (int i = 0; i < folderCount; i++) {
+          folders.add(Folder.fromBuffer(projectData));
+        }
       }
       finally {
         if (is != null)
@@ -58,4 +66,9 @@ public class Project {
   public Collection<PMap> getMaps() {
     return Collections.unmodifiableCollection(maps);
   }
+
+  public Collection<Folder> getFolders() {
+    return Collections.unmodifiableCollection(folders);
+  }
+  
 }

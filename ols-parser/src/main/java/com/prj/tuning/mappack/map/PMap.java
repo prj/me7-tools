@@ -14,6 +14,7 @@ public class PMap {
   private Value value;
   private Axis xAxis;
   private Axis yAxis;
+  private int folderId;
 
   private PMap() {
   }
@@ -26,7 +27,8 @@ public class PMap {
     map.organization = Organization.get(b.getInt());
     BinaryUtil.skip(b, 4);
     map.valueType = ValueType.get(b.getInt());
-    BinaryUtil.skip(b, 12);
+    BinaryUtil.skip(b, 8);
+    map.folderId = b.getInt();
     map.id = BinaryUtil.readString(b);
     BinaryUtil.skip(b, 57);
     int xLen = b.getInt();
@@ -118,6 +120,10 @@ public class PMap {
 
   public Axis getyAxis() {
     return yAxis;
+  }
+
+  public int getFolderId() {
+    return folderId;
   }
 
 }

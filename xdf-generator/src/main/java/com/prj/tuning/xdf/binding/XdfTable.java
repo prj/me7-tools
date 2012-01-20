@@ -21,4 +21,7 @@ public abstract class XdfTable {
 
   @XmlElementRef
   public abstract XdfAxis getValueAxis();
+  
+  @XmlElementRef
+  public abstract XdfCategoryMem getCategory();
 }

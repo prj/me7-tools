@@ -3,6 +3,7 @@ package com.prj.tuning.xdf.olsimpl;
 import com.prj.tuning.mappack.map.Axis;
 import com.prj.tuning.mappack.map.PMap;
 import com.prj.tuning.xdf.binding.XdfAxis;
+import com.prj.tuning.xdf.binding.XdfCategoryMem;
 import com.prj.tuning.xdf.binding.XdfEmbedded;
 import com.prj.tuning.xdf.binding.XdfMath;
 import com.prj.tuning.xdf.binding.XdfProject;
@@ -10,9 +11,11 @@ import com.prj.tuning.xdf.binding.XdfTable;
 
 public class OlsMap extends XdfTable {
   private PMap map;
+  private boolean omitCategories;
 
-  public OlsMap(PMap map) {
+  public OlsMap(PMap map, boolean omitCategories) {
     this.map = map;
+    this.omitCategories = omitCategories;
   }
 
   @Override
@@ -112,7 +115,7 @@ public class OlsMap extends XdfTable {
 
           @Override
           public String getTypeFlags() {
-            return "0x02";
+            return "0x03";
           }
         };
       }
@@ -134,5 +137,10 @@ public class OlsMap extends XdfTable {
 
   private boolean shouldFlip() {
     return map.getxAxis().getLength() < 2;
+  }
+
+  @Override
+  public XdfCategoryMem getCategory() {
+    return omitCategories ? null : new OlsCategoryMem(map.getFolderId());
   }
 }

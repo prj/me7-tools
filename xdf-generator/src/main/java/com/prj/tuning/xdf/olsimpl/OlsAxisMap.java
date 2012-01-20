@@ -2,11 +2,13 @@ package com.prj.tuning.xdf.olsimpl;
 
 import com.prj.tuning.mappack.map.Axis;
 import com.prj.tuning.xdf.binding.XdfAxis;
+import com.prj.tuning.xdf.binding.XdfCategoryMem;
 import com.prj.tuning.xdf.binding.XdfEmbedded;
 import com.prj.tuning.xdf.binding.XdfMath;
 import com.prj.tuning.xdf.binding.XdfTable;
 
 public class OlsAxisMap extends XdfTable {
+  public static final int AXIS_CATEGORY = 255;
   private Axis axis;
 
   public OlsAxisMap(Axis axis) {
@@ -80,7 +82,7 @@ public class OlsAxisMap extends XdfTable {
 
           @Override
           public String getTypeFlags() {
-            return "0x02";
+            return "0x03";
           }
         };
       }
@@ -90,5 +92,10 @@ public class OlsAxisMap extends XdfTable {
         return new OlsMath(axis.getValue());
       }
     };
+  }
+
+  @Override
+  public XdfCategoryMem getCategory() {
+    return new OlsCategoryMem(AXIS_CATEGORY);
   }
 }
