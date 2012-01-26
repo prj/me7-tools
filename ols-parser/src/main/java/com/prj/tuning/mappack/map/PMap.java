@@ -93,7 +93,7 @@ public class PMap {
     }
     
     public boolean isLsbFirst() {
-      return this == _16_BIG || this == _32_BIG || this == _32_FLOAT_BIG;
+      return this == _16_LITTLE || this == _32_LITTLE || this == _32_FLOAT_LITTLE;
     }
   }
 
