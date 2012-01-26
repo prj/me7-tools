@@ -15,6 +15,7 @@ public class PMap {
   private Axis xAxis;
   private Axis yAxis;
   private int folderId;
+  private boolean signed;
 
   private PMap() {
   }
@@ -30,7 +31,9 @@ public class PMap {
     BinaryUtil.skip(b, 8);
     map.folderId = b.getInt();
     map.id = BinaryUtil.readString(b);
-    BinaryUtil.skip(b, 57);
+    BinaryUtil.skip(b, 54);
+    map.signed = b.get() == 1;
+    BinaryUtil.skip(b, 2);
     int xLen = b.getInt();
     int yLen = b.getInt();
     BinaryUtil.skip(b, 12);
@@ -88,6 +91,10 @@ public class PMap {
     public static ValueType get(int value) {
       return lookup.get(value);
     }
+    
+    public boolean isLsbFirst() {
+      return this == _16_BIG || this == _32_BIG || this == _32_FLOAT_BIG;
+    }
   }
 
   public String getId() {
@@ -124,6 +131,10 @@ public class PMap {
 
   public int getFolderId() {
     return folderId;
+  }
+
+  public boolean isSigned() {
+    return signed;
   }
 
 }

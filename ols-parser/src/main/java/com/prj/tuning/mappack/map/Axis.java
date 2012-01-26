@@ -13,6 +13,7 @@ public class Axis {
   private int address;
   private ValueType valueType;
   private int signature;
+  private boolean signed;
 
   private Axis() {
   };
@@ -23,7 +24,8 @@ public class Axis {
     axis.dataSource = DataSource.get(b.getInt());
     axis.address = b.getInt();
     axis.valueType = ValueType.get(b.getInt());
-    BinaryUtil.skip(b, 15);
+    BinaryUtil.skip(b, 14);
+    axis.signed = b.get() == 1;
     BinaryUtil.skip(b, b.getInt() + 4);
     axis.signature = b.getInt();
     axis.length = len;
@@ -79,6 +81,10 @@ public class Axis {
 
   public int getSignature() {
     return signature;
+  }
+
+  public boolean isSigned() {
+    return signed;
   }
 
 }

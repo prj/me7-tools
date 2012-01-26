@@ -82,7 +82,7 @@ public class OlsAxisMap extends XdfTable {
 
           @Override
           public String getTypeFlags() {
-            return "0x03";
+            return String.format("0x%X", (axis.isSigned() ? 1 : 0) + (axis.getValueType().isLsbFirst() ? 2 : 0));
           }
         };
       }

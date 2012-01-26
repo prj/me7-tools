@@ -115,7 +115,7 @@ public class OlsMap extends XdfTable {
 
           @Override
           public String getTypeFlags() {
-            return "0x03";
+            return String.format("0x%X", (map.isSigned() ? 1 : 0) + (map.getValueType().isLsbFirst() ? 2 : 0));
           }
         };
       }
