@@ -14,6 +14,7 @@ public class Axis {
   private ValueType valueType;
   private int signature;
   private boolean signed;
+  private byte precision;
 
   private Axis() {
   };
@@ -24,7 +25,9 @@ public class Axis {
     axis.dataSource = DataSource.get(b.getInt());
     axis.address = b.getInt();
     axis.valueType = ValueType.get(b.getInt());
-    BinaryUtil.skip(b, 14);
+    BinaryUtil.skip(b, 10);
+    axis.precision = b.get();
+    BinaryUtil.skip(b, 3);
     axis.signed = b.get() == 1;
     BinaryUtil.skip(b, b.getInt() + 4);
     axis.signature = b.getInt();
@@ -85,6 +88,10 @@ public class Axis {
 
   public boolean isSigned() {
     return signed;
+  }
+
+  public byte getPrecision() {
+    return precision;
   }
 
 }

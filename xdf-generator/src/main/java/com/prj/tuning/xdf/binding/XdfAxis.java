@@ -10,6 +10,11 @@ public abstract class XdfAxis {
 
   @XmlAttribute(name = "id")
   public abstract String getDimension();
+  
+  @XmlElement(name = "decimalpl")
+  public Integer getDecimalpl() {
+    return null;
+  }
 
   @XmlElement(name = "indexcount")
   public Integer getXdfIndexcount() {

@@ -16,7 +16,7 @@ public class OlsMath extends XdfMath {
 
   @Override
   public String getXdfEquation() {
-    return value.getOffset() + "+X*" + value.getFactor();
+    return String.format("%f+X*%f", value.getOffset(), value.getFactor());
   }
 
   @Override

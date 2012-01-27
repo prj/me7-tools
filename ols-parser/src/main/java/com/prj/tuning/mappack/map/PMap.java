@@ -16,6 +16,7 @@ public class PMap {
   private Axis yAxis;
   private int folderId;
   private boolean signed;
+  private int precision;
 
   private PMap() {
   }
@@ -36,7 +37,8 @@ public class PMap {
     BinaryUtil.skip(b, 2);
     int xLen = b.getInt();
     int yLen = b.getInt();
-    BinaryUtil.skip(b, 12);
+    BinaryUtil.skip(b, 8);
+    map.precision = b.getInt();
     map.value = Value.fromBuffer(b);
     map.address = b.getInt();
     BinaryUtil.skip(b, 28);
@@ -135,6 +137,10 @@ public class PMap {
 
   public boolean isSigned() {
     return signed;
+  }
+
+  public int getPrecision() {
+    return precision;
   }
 
 }

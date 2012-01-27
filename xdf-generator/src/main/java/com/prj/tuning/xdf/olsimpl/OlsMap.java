@@ -124,6 +124,11 @@ public class OlsMap extends XdfTable {
       public XdfMath getXdfMath() {
         return new OlsMath(map.getValue());
       }
+
+      @Override
+      public Integer getDecimalpl() {
+        return map.getPrecision();
+      }
     };
   }
 

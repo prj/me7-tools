@@ -67,6 +67,11 @@ public class OlsAxisMap extends XdfTable {
       }
 
       @Override
+      public Integer getDecimalpl() {
+        return (int)axis.getPrecision();
+      }
+
+      @Override
       public XdfEmbedded getEmbedded() {
         return new XdfEmbedded() {
 
