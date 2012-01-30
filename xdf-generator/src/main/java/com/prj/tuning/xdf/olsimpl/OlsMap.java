@@ -30,7 +30,7 @@ public class OlsMap extends XdfTable {
 
   @Override
   public XdfAxis getRowAxis() {
-    if (map.getyAxis().getDataSource().isEprom()) {
+    if (getyAxis().getDataSource().isEprom()) {
       return new OlsAxis() {
 
         @Override
@@ -61,7 +61,7 @@ public class OlsMap extends XdfTable {
 
   @Override
   public XdfAxis getColAxis() {
-    if (map.getyAxis().getDataSource().isEprom()) {
+    if (getxAxis().getDataSource().isEprom()) {
       return new OlsAxis() {
 
         @Override
@@ -141,7 +141,7 @@ public class OlsMap extends XdfTable {
   }
 
   private boolean shouldFlip() {
-    return map.getxAxis().getLength() < 2;
+    return map.getyAxis().getLength() < 2 && map.getxAxis().getLength() > 1;
   }
 
   @Override

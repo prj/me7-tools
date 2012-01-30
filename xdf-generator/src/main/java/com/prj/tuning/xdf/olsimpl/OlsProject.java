@@ -36,15 +36,19 @@ public class OlsProject extends XdfProject {
     });
 
     Set<Integer> axes = new HashSet<Integer>();
+    Set<Integer> addresses = new HashSet<Integer>();
     for (PMap map : project.getMaps()) {
-      // For every map check if the axis comes from EPROM, and if it does,
-      // create it in XDF
-      if (map.getxAxis().getDataSource().isEprom() && !axes.contains(map.getxAxis().getAddress())) {
+      addresses.add(map.getAddress());
+    }
+    
+    for (PMap map : project.getMaps()) {
+      // For every map check if the axis comes from EPROM, and if it does and there is no map for it in .kp, create it.
+      if (map.getxAxis().getDataSource().isEprom() && !axes.contains(map.getxAxis().getAddress()) && !addresses.contains(map.getxAxis().getAddress())) {
         tables.add(new OlsAxisMap(map.getxAxis()));
         axes.add(map.getxAxis().getAddress());
       }
 
-      if (map.getyAxis().getDataSource().isEprom() && !axes.contains(map.getyAxis().getAddress())) {
+      if (map.getyAxis().getDataSource().isEprom() && !axes.contains(map.getyAxis().getAddress()) && !addresses.contains(map.getxAxis().getAddress())) {
         tables.add(new OlsAxisMap(map.getyAxis()));
         axes.add(map.getyAxis().getAddress());
       }
