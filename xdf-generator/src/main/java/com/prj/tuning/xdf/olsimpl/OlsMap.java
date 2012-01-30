@@ -127,7 +127,7 @@ public class OlsMap extends XdfTable {
 
       @Override
       public Integer getDecimalpl() {
-        return map.getPrecision();
+        return map.getPrecision() > 2 ? 2 : map.getPrecision();
       }
     };
   }
