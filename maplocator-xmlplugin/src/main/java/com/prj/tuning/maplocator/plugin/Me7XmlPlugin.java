@@ -29,70 +29,73 @@ public class Me7XmlPlugin implements LocatorPlugin {
       JAXBContext ctx = JAXBContext.newInstance("com.prj.tuning.maplocator.plugin.jaxb");
       Unmarshaller unmarshaller = ctx.createUnmarshaller();
 
-      File xmls;
-      if (System.getProperty("xml.dir") != null) {      
-        xmls = new File(System.getProperty("xml.dir"));
-      } else {
-        xmls = new File("me7xmls");
-      }
-      
+      File xmls = new File(System.getProperty("xml.override.dir", "me7xmls"));
       HashSet<String> axisIds = new HashSet<String>();
-      
+
       for (File file : xmls.listFiles()) {
         if (file.getName().toLowerCase().endsWith(".xml")) {
           Map map = ((JAXBElement<Map>) unmarshaller.unmarshal(file)).getValue();
           if (map.getColAxis() != null) {
             axisIds.addAll(map.getColAxis().getId());
           }
-          
-          if(map.getRowAxis() != null) {
+
+          if (map.getRowAxis() != null) {
             axisIds.addAll(map.getRowAxis().getId());
           }
-          
+
           LocatedMapWithXml lMap = getLocatedMap(map, binary);
           if (lMap != null) {
             maps.put(lMap.getId(), lMap);
           }
         }
       }
-      
+
       // Add axes
       for (Iterator<String> i = maps.keySet().iterator(); i.hasNext();) {
         LocatedMapWithXml lMap = maps.get(i.next());
         if (axisIds.contains(lMap.getId())) {
           lMap.setAxis(binary);
         }
-        
+
         if (lMap.map.getColAxis() != null) {
           for (String id : lMap.map.getColAxis().getId()) {
             LocatedMapWithXml xAxis = maps.get(id);
             if (xAxis != null) {
               lMap.setxAxis(xAxis);
+              xAxis.setAxis(binary);
+              if (Boolean.TRUE.equals(lMap.map.getAfterColAxis())) {
+                lMap.setAddress(xAxis.getAddress() + xAxis.getWidth() * xAxis.getLength());
+              }
               break;
             }
           }
-          
+
           if (lMap.getxAxis() == null) {
             log.log("Removing " + lMap.getId() + ", because col axis was not found.");
             i.remove();
             continue;
           }
         }
-        
+
         if (lMap.map.getRowAxis() != null) {
           for (String id : lMap.map.getRowAxis().getId()) {
             LocatedMapWithXml yAxis = maps.get(id);
             if (yAxis != null) {
               lMap.setyAxis(yAxis);
+              yAxis.setAxis(binary);
+              if (Boolean.TRUE.equals(lMap.map.getAfterRowAxis())) {
+                lMap.setAddress(yAxis.getAddress() + yAxis.getWidth() * yAxis.getLength());
+              }
               break;
             }
           }
-          
+
           if (lMap.getyAxis() == null) {
             log.log("Removing " + lMap.getId() + ", because row axis was not found.");
             i.remove();
           }
         }
+
       }
     }
     catch (Exception e) {
@@ -101,28 +104,31 @@ public class Me7XmlPlugin implements LocatorPlugin {
 
     return maps.values();
   }
-  
+
   private static int getInt(byte[] binary, int offset) {
     return new BigInteger(new byte[] { binary[offset + 1], binary[offset] }).intValue() & 0x0000FFFF;
   }
 
   private static LocatedMapWithXml getLocatedMap(Map map, byte[] binary) throws Exception {
-    
-    // Find pattern
-    int patternLocation = PatternMatcher.findPattern(map.getPattern(), binary);
-    
-    if (patternLocation == -1) {
-      return null;
-    } else {
-      log.log("Pattern for " + map.getId() + " found at: " + String.format("0x%X", patternLocation));
-    }
-
-    int address = getAddress(binary, map.getAddress(), patternLocation);
 
     LocatedMapWithXml lMap = new LocatedMapWithXml();
     lMap.map = map;
+    
+    int patternLocation = 0;
+
+    // Find pattern
+    if (map.getPattern() != null) {
+      patternLocation = PatternMatcher.findPattern(map.getPattern(), binary);
+
+      if (patternLocation == -1) {
+        return null;
+      }
+
+      log.log("Pattern for " + map.getId() + " found at: " + String.format("0x%X", patternLocation));
+      lMap.setAddress(getAddress(binary, map.getAddress(), patternLocation));
+    }
+
     lMap.setId(map.getId());
-    lMap.setAddress(address);
 
     // Conversion
     BeanUtil.transferValue(map, lMap, "conversion.factor", "factor", 1.0);
@@ -137,21 +143,22 @@ public class Me7XmlPlugin implements LocatorPlugin {
     }
 
     BeanUtil.transferValue(map, lMap, "conversion.signed", "signed", false);
-    
+
     // Length
     if (map.getLength() != null) {
       if (map.getLength().getHardcoded() != null) {
         lMap.setLength(map.getLength().getHardcoded().intValue());
-      } else {
+      }
+      else {
         int lenAddr = getAddress(binary, map.getLength().getAddress(), patternLocation);
         int len = map.getLength().getWidth() == null ? 1 : map.getLength().getWidth();
         lMap.setLength(len == 1 ? binary[lenAddr] & 0xFF : getInt(binary, lenAddr));
       }
     }
-    
+
     return lMap;
   }
-  
+
   private static int getAddress(byte[] binary, Address address, int patternLocation) {
     int dpp = 0x204;
     int addr = 0;
@@ -175,15 +182,17 @@ public class Me7XmlPlugin implements LocatorPlugin {
 
     return dpp * 0x4000 - 0x800000 + addr;
   }
-  
-  public static class LocatedMapWithXml extends LocatedMap {
+
+  private static class LocatedMapWithXml extends LocatedMap {
     private Map map;
-    
+
     private void setAxis(byte[] binary) {
-      setAxis(true);
-      if (map.getLength() == null) {
-        setLength(getWidth() == 1 ? binary[getAddress()] & 0xFF : getInt(binary, getAddress()));
-        setAddress(getAddress() + getWidth());
+      if (!isAxis()) {
+        setAxis(true);
+        if (map.getLength() == null) {
+          setLength(getWidth() == 1 ? binary[getAddress()] & 0xFF : Me7XmlPlugin.getInt(binary, getAddress()));
+          setAddress(getAddress() + getWidth());
+        }
       }
     }
   }

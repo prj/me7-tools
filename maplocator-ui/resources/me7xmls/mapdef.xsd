@@ -3,9 +3,13 @@
 	elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns="http://prj-tuning.com/mapdef">
 	<xsd:complexType name="map">
-		<xsd:all>
+		<xsd:sequence>
 			<xsd:element name="id" type="xsd:string"></xsd:element>
-			<xsd:element name="pattern" type="xsd:string"></xsd:element>
+			<xsd:choice>
+				<xsd:element name="pattern" type="xsd:string"></xsd:element>
+				<xsd:element name="afterRowAxis" type="xsd:boolean" />
+				<xsd:element name="afterColAxis" type="xsd:boolean" />
+			</xsd:choice>
 			<xsd:element name="address" type="address" maxOccurs="1"
 				minOccurs="0">
 			</xsd:element>
@@ -19,7 +23,7 @@
 				minOccurs="0" />
 			<xsd:element name="colAxis" type="axisref" minOccurs="0"
 				maxOccurs="1" />
-		</xsd:all>
+		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:element name="map" type="map"></xsd:element>
@@ -42,7 +46,8 @@
 				minOccurs="0"></xsd:element>
 			<xsd:element name="offset" type="xsd:double" maxOccurs="1"
 				minOccurs="0"></xsd:element>
-			<xsd:element name="width" type="width" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="width" type="width" maxOccurs="1"
+				minOccurs="0" />
 			<xsd:element name="endianness" maxOccurs="1" minOccurs="0">
 				<xsd:simpleType>
 					<xsd:restriction base="xsd:string">
@@ -61,7 +66,8 @@
 			<xsd:element name="hardcoded" type="xsd:integer" />
 			<xsd:sequence>
 				<xsd:element name="address" type="address" />
-				<xsd:element name="width" type="width" maxOccurs="1" minOccurs="0"/>
+				<xsd:element name="width" type="width" maxOccurs="1"
+					minOccurs="0" />
 			</xsd:sequence>
 		</xsd:choice>
 	</xsd:complexType>

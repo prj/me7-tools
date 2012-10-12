@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>LDRXNZK</id>
+	<afterRowAxis>true</afterRowAxis>
+	<conversion>
+		<factor>0.023438</factor>
+		<width>2</width>
+		<endianness>LoHi</endianness>
+	</conversion>
+	<rowAxis>
+		<id>LDRXNZK_ROWAXIS</id>
+	</rowAxis>
+</map>

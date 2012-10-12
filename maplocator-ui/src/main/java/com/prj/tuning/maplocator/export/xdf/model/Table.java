@@ -32,7 +32,7 @@ public class Table extends XdfTable {
 
   @Override
   public XdfAxis getRowAxis() {
-    if (locatedMap.getxAxis() == null) {
+    if (locatedMap.getyAxis() == null) {
       return new DummyAxis("y", locatedMap.getLength() == 0 ? 1 : locatedMap.getLength());
     } else {
       return new Axis("y", locatedMap.getyAxis());
