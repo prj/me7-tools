@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>CATR</id>
+	<pattern>D7 40 XX XX F3 F8 MMXX XX 69 81 2D 02 6F 88 0D 01</pattern>
+	<address>
+		<dppOffset>-4</dppOffset>
+	</address>
+</map>
