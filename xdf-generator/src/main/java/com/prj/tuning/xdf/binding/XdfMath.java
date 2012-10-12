@@ -11,7 +11,14 @@ public abstract class XdfMath {
 
   @XmlAttribute(name = "equation")
   public abstract String getXdfEquation();
+  
+  @XmlAttribute(name = "row")
+  public String getXdfRow() {
+    return null;
+  }
 
   @XmlElementRef
-  public abstract Collection<XdfMathVar> getXdfMathVars();
+  public Collection<XdfMathVar> getXdfMathVars() {
+    return null;
+  }
 }

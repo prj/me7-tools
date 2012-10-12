@@ -1,5 +1,8 @@
 package com.prj.tuning.xdf.olsimpl;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.prj.tuning.mappack.map.Axis;
 import com.prj.tuning.mappack.map.PMap;
 import com.prj.tuning.xdf.binding.XdfAxis;
@@ -8,19 +11,22 @@ import com.prj.tuning.xdf.binding.XdfEmbedded;
 import com.prj.tuning.xdf.binding.XdfMath;
 import com.prj.tuning.xdf.binding.XdfProject;
 import com.prj.tuning.xdf.binding.XdfTable;
+import com.prj.tuning.xdf.olsimpl.addressmap.AddressMap;
 
 public class OlsMap extends XdfTable {
   private PMap map;
   private boolean omitCategories;
+  private AddressMap sub;
 
-  public OlsMap(PMap map, boolean omitCategories) {
+  public OlsMap(PMap map, boolean omitCategories, AddressMap sub) {
     this.map = map;
     this.omitCategories = omitCategories;
+    this.sub = sub;
   }
 
   @Override
   public String getUniqueId() {
-    return String.format(XdfProject.ADDRESS_FORMAT, map.getAddress());
+    return String.format(XdfProject.ADDRESS_FORMAT, sub.subAddr(map.getAddress()));
   }
 
   @Override
@@ -31,7 +37,7 @@ public class OlsMap extends XdfTable {
   @Override
   public XdfAxis getRowAxis() {
     if (getyAxis().getDataSource().isEprom()) {
-      return new OlsAxis() {
+      return new OlsAxis(sub) {
 
         @Override
         public String getDimension() {
@@ -62,7 +68,7 @@ public class OlsMap extends XdfTable {
   @Override
   public XdfAxis getColAxis() {
     if (getxAxis().getDataSource().isEprom()) {
-      return new OlsAxis() {
+      return new OlsAxis(sub) {
 
         @Override
         public String getDimension() {
@@ -121,8 +127,8 @@ public class OlsMap extends XdfTable {
       }
 
       @Override
-      public XdfMath getXdfMath() {
-        return new OlsMath(map.getValue());
+      public List<XdfMath> getXdfMath() {
+        return Arrays.asList(new XdfMath[] {new OlsMath(map.getValue())});
       }
 
       @Override

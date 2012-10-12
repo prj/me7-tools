@@ -1,5 +1,7 @@
 package com.prj.tuning.xdf.binding;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
@@ -27,7 +29,7 @@ public abstract class XdfAxis {
   }
 
   @XmlElementRef
-  public XdfMath getXdfMath() {
+  public List<XdfMath> getXdfMath() {
     return null;
   }
 

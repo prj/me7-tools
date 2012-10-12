@@ -11,13 +11,21 @@ import com.prj.tuning.mappack.map.PMap;
 import com.prj.tuning.xdf.binding.XdfHeader;
 import com.prj.tuning.xdf.binding.XdfProject;
 import com.prj.tuning.xdf.binding.XdfTable;
+import com.prj.tuning.xdf.olsimpl.addressmap.AddressMap;
+import com.prj.tuning.xdf.olsimpl.addressmap.DummyAddressMap;
 
 public class OlsProject extends XdfProject {
   private Project project;
   private OlsHeader header;
+  private AddressMap sub;
 
   public OlsProject(Project project) {
+    this(project, new DummyAddressMap());
+  }
+  
+  public OlsProject(Project project, AddressMap sub) {
     this.project = project;
+    this.sub = sub;
   }
 
   @Override
@@ -38,22 +46,22 @@ public class OlsProject extends XdfProject {
     Set<Integer> axes = new HashSet<Integer>();
     Set<Integer> addresses = new HashSet<Integer>();
     for (PMap map : project.getMaps()) {
-      addresses.add(map.getAddress());
+      addresses.add(sub.subAddr(map.getAddress()));
     }
     
     for (PMap map : project.getMaps()) {
       // For every map check if the axis comes from EPROM, and if it does and there is no map for it in .kp, create it.
-      if (map.getxAxis().getDataSource().isEprom() && !axes.contains(map.getxAxis().getAddress()) && !addresses.contains(map.getxAxis().getAddress())) {
-        tables.add(new OlsAxisMap(map.getxAxis()));
-        axes.add(map.getxAxis().getAddress());
+      if (map.getxAxis().getDataSource().isEprom() && !axes.contains(sub.subAddr(map.getxAxis().getAddress())) && !addresses.contains(sub.subAddr(map.getxAxis().getAddress()))) {
+        tables.add(new OlsAxisMap(map.getxAxis(), sub));
+        axes.add(sub.subAddr(map.getxAxis().getAddress()));
       }
 
-      if (map.getyAxis().getDataSource().isEprom() && !axes.contains(map.getyAxis().getAddress()) && !addresses.contains(map.getxAxis().getAddress())) {
-        tables.add(new OlsAxisMap(map.getyAxis()));
-        axes.add(map.getyAxis().getAddress());
+      if (map.getyAxis().getDataSource().isEprom() && !axes.contains(sub.subAddr(map.getyAxis().getAddress())) && !addresses.contains(sub.subAddr(map.getyAxis().getAddress()))) {
+        tables.add(new OlsAxisMap(map.getyAxis(), sub));
+        axes.add(sub.subAddr(map.getyAxis().getAddress()));
       }
 
-      tables.add(new OlsMap(map, project.getFolders().size() > 254));
+      tables.add(new OlsMap(map, project.getFolders().size() > 254, sub));
     }
     return tables;
   }

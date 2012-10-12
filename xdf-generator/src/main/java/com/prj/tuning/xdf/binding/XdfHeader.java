@@ -13,6 +13,11 @@ public abstract class XdfHeader {
   public abstract String getDeftitle();
   
   @XmlElementRef
+  public XdfRegion getRegion() {
+    return null;
+  }
+  
+  @XmlElementRef
   public abstract Collection<XdfCategory> getCategories();
 
 }

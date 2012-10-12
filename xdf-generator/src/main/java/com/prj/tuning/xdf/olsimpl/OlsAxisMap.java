@@ -1,23 +1,29 @@
 package com.prj.tuning.xdf.olsimpl;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.prj.tuning.mappack.map.Axis;
 import com.prj.tuning.xdf.binding.XdfAxis;
 import com.prj.tuning.xdf.binding.XdfCategoryMem;
 import com.prj.tuning.xdf.binding.XdfEmbedded;
 import com.prj.tuning.xdf.binding.XdfMath;
 import com.prj.tuning.xdf.binding.XdfTable;
+import com.prj.tuning.xdf.olsimpl.addressmap.AddressMap;
 
 public class OlsAxisMap extends XdfTable {
   public static final int AXIS_CATEGORY = 255;
   private Axis axis;
+  private AddressMap sub;
 
-  public OlsAxisMap(Axis axis) {
+  public OlsAxisMap(Axis axis, AddressMap sub) {
     this.axis = axis;
+    this.sub = sub;
   }
 
   @Override
   public String getUniqueId() {
-    return String.format(OlsProject.ADDRESS_FORMAT, axis.getAddress());
+    return String.format(OlsProject.ADDRESS_FORMAT, sub.subAddr(axis.getAddress()));
   }
 
   @Override
@@ -93,8 +99,8 @@ public class OlsAxisMap extends XdfTable {
       }
 
       @Override
-      public XdfMath getXdfMath() {
-        return new OlsMath(axis.getValue());
+      public List<XdfMath> getXdfMath() {
+        return Arrays.asList(new XdfMath[] {new OlsMath(axis.getValue())});
       }
     };
   }

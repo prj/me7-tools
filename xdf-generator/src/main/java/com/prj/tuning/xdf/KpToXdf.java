@@ -12,7 +12,7 @@ import com.prj.tuning.xdf.olsimpl.OlsProject;
 public class KpToXdf {
 
   public static void main(String[] args) throws Exception {
-    Project p = new Project(new File(args[0]).toURI().toURL()).parse();
+    Project p = new com.prj.tuning.olsproject.OlsProject(new File(args[0]).toURI().toURL()).parse();
 
     JAXBContext ctx = JAXBContext.newInstance(XdfProject.class);
     Marshaller marshaller = ctx.createMarshaller();
