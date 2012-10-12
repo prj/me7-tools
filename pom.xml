@@ -8,7 +8,6 @@
   	<module>ols-parser</module>
   	<module>xdf-generator</module>
   	<module>mapsearch</module>
-  	<module>maplocator</module>
   	<module>maplocator-ui</module>
   	<module>maplocator-xmlplugin</module>
   </modules>
