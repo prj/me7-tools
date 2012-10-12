@@ -10,17 +10,12 @@ public class Header {
   private String program;
   private int mapCount;
 
-  private Header() {
+  protected Header() {
   }
 
   public static Header fromBuffer(ByteBuffer b) {
     Header header = new Header();
-    header.name = BinaryUtil.readString(b);
-    BinaryUtil.skip(b, 76);
-    header.fileName = BinaryUtil.readString(b);
-    header.program = BinaryUtil.readString(b);
-    BinaryUtil.skip(b, 461);
-    header.mapCount = b.getInt();
+    header.parse(b);
     return header;
   }
 
@@ -38,6 +33,15 @@ public class Header {
 
   public int getMapCount() {
     return mapCount;
+  }
+  
+  protected void parse(ByteBuffer b) {
+    name = BinaryUtil.readString(b);
+    BinaryUtil.skip(b, 76);
+    fileName = BinaryUtil.readString(b);
+    program = BinaryUtil.readString(b);
+    BinaryUtil.skip(b, 461);
+    mapCount = b.getInt();
   }
 
 }

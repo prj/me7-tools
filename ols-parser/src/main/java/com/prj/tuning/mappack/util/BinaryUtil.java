@@ -1,9 +1,12 @@
 package com.prj.tuning.mappack.util;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 
 public class BinaryUtil {
@@ -62,5 +65,22 @@ public class BinaryUtil {
     buf2.get(b2);
 
     return Arrays.equals(b1, b2);
+  }
+  
+  public static ByteBuffer readFile(URL projectUrl) throws IOException {
+    ByteBuffer buf = null;
+    BufferedInputStream is = null;
+    try {
+      is = new BufferedInputStream(projectUrl.openStream());
+      // Allocate off-heap
+      buf = ByteBuffer.allocateDirect(is.available());
+      buf.order(ByteOrder.LITTLE_ENDIAN);
+      BinaryUtil.transferToBuf(buf, is);
+    }
+    finally {
+      if (is != null)
+        is.close();
+    }
+    return buf;
   }
 }

@@ -7,33 +7,18 @@ import com.prj.tuning.mappack.map.PMap.ValueType;
 import com.prj.tuning.mappack.util.BinaryUtil;
 
 public class Axis {
-  private int length;
-  private Value value;
-  private DataSource dataSource;
-  private int address;
-  private ValueType valueType;
-  private int signature;
-  private boolean signed;
-  private byte precision;
+  protected int length;
+  protected Value value;
+  protected DataSource dataSource;
+  protected int address;
+  protected ValueType valueType;
+  protected int signature;
+  protected boolean signed;
+  protected byte precision;
 
-  private Axis() {
+  public Axis(int length) {
+    this.length = length;
   };
-
-  public static Axis fromBuffer(ByteBuffer b, int len) {
-    Axis axis = new Axis();
-    axis.value = Value.fromBuffer(b);
-    axis.dataSource = DataSource.get(b.getInt());
-    axis.address = b.getInt();
-    axis.valueType = ValueType.get(b.getInt());
-    BinaryUtil.skip(b, 10);
-    axis.precision = b.get();
-    BinaryUtil.skip(b, 3);
-    axis.signed = b.get() == 1;
-    BinaryUtil.skip(b, b.getInt() + 4);
-    axis.signature = b.getInt();
-    axis.length = len;
-    return axis;
-  }
 
   public int getRawLength() {
     return length * valueType.width;
@@ -92,6 +77,20 @@ public class Axis {
 
   public byte getPrecision() {
     return precision;
+  }
+  
+  public Axis parse(ByteBuffer b) {
+    value = Value.fromBuffer(b);
+    dataSource = DataSource.get(b.getInt());
+    address = b.getInt();
+    valueType = ValueType.get(b.getInt());
+    BinaryUtil.skip(b, 10);
+    precision = b.get();
+    BinaryUtil.skip(b, 3);
+    signed = b.get() == 1;
+    BinaryUtil.skip(b, b.getInt() + 4);
+    signature = b.getInt();
+    return this;
   }
 
 }

@@ -6,47 +6,19 @@ import java.util.HashMap;
 import com.prj.tuning.mappack.util.BinaryUtil;
 
 public class PMap {
-  private String id;
-  private String name;
-  private int address;
-  private Organization organization;
-  private ValueType valueType;
-  private Value value;
-  private Axis xAxis;
-  private Axis yAxis;
-  private int folderId;
-  private boolean signed;
-  private int precision;
+  protected String id;
+  protected String name;
+  protected int address;
+  protected Organization organization;
+  protected ValueType valueType;
+  protected Value value;
+  protected Axis xAxis;
+  protected Axis yAxis;
+  protected int folderId;
+  protected boolean signed;
+  protected int precision;
 
-  private PMap() {
-  }
-
-  public static PMap fromBuffer(ByteBuffer b) {
-    PMap map = new PMap();
-
-    BinaryUtil.skip(b, 1);
-    map.name = BinaryUtil.readString(b);
-    map.organization = Organization.get(b.getInt());
-    BinaryUtil.skip(b, 4);
-    map.valueType = ValueType.get(b.getInt());
-    BinaryUtil.skip(b, 8);
-    map.folderId = b.getInt();
-    map.id = BinaryUtil.readString(b);
-    BinaryUtil.skip(b, 54);
-    map.signed = b.get() == 1;
-    BinaryUtil.skip(b, 2);
-    int xLen = b.getInt();
-    int yLen = b.getInt();
-    BinaryUtil.skip(b, 8);
-    map.precision = b.getInt();
-    map.value = Value.fromBuffer(b);
-    map.address = b.getInt();
-    BinaryUtil.skip(b, 28);
-    map.xAxis = Axis.fromBuffer(b, xLen);
-    map.yAxis = Axis.fromBuffer(b, yLen);
-    BinaryUtil.skip(b, 80);
-
-    return map;
+  public PMap() {
   }
 
   public int getRawLength() {
@@ -141,6 +113,32 @@ public class PMap {
 
   public int getPrecision() {
     return precision;
+  }
+  
+  public PMap parse(ByteBuffer b) {
+    BinaryUtil.skip(b, 1);
+    name = BinaryUtil.readString(b);
+    organization = Organization.get(b.getInt());
+    BinaryUtil.skip(b, 4);
+    valueType = ValueType.get(b.getInt());
+    BinaryUtil.skip(b, 8);
+    folderId = b.getInt();
+    id = BinaryUtil.readString(b);
+    BinaryUtil.skip(b, 54);
+    signed = b.get() == 1;
+    BinaryUtil.skip(b, 2);
+    int xLen = b.getInt();
+    int yLen = b.getInt();
+    BinaryUtil.skip(b, 8);
+    precision = b.getInt();
+    value = Value.fromBuffer(b);
+    address = b.getInt();
+    BinaryUtil.skip(b, 28);
+    xAxis = new Axis(xLen).parse(b);
+    yAxis = new Axis(yLen).parse(b);
+    BinaryUtil.skip(b, 80);
+    
+    return this;
   }
 
 }
