@@ -14,6 +14,7 @@ import javax.xml.bind.Unmarshaller;
 import com.prj.tuning.maplocator.model.LocatedMap;
 import com.prj.tuning.maplocator.model.LocatedMap.Endianness;
 import com.prj.tuning.maplocator.plugin.jaxb.Address;
+import com.prj.tuning.maplocator.plugin.jaxb.Conversion;
 import com.prj.tuning.maplocator.plugin.jaxb.Map;
 import com.prj.tuning.maplocator.util.BeanUtil;
 import com.prj.tuning.maplocator.util.Logger;
@@ -118,9 +119,12 @@ public class Me7XmlPlugin implements LocatorPlugin {
 
     // Find pattern
     if (map.getPattern() != null) {
-      patternLocation = PatternMatcher.findPattern(map.getPattern(), binary);
+      for (String pattern : map.getPattern()) {
+        if ((patternLocation = PatternMatcher.findPattern(pattern, binary)) != -1) break;
+      }
 
       if (patternLocation == -1) {
+        log.log("Pattern for " + map.getId() + " not found.");
         return null;
       }
 
@@ -131,18 +135,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
     lMap.setId(map.getId());
 
     // Conversion
-    BeanUtil.transferValue(map, lMap, "conversion.factor", "factor", 1.0);
-    BeanUtil.transferValue(map, lMap, "conversion.offset", "offset", 0.0);
-    BeanUtil.transferValue(map, lMap, "conversion.width", "width", 1);
-
-    if (map.getConversion() != null && "LoHi".equals(map.getConversion().getEndianness())) {
-      lMap.setEndianness(Endianness.BIGENDIAN);
-    }
-    else {
-      lMap.setEndianness(Endianness.LITTLEENDIAN);
-    }
-
-    BeanUtil.transferValue(map, lMap, "conversion.signed", "signed", false);
+    transferConversion(lMap, map.getConversion());
 
     // Length
     if (map.getLength() != null) {
@@ -157,6 +150,22 @@ public class Me7XmlPlugin implements LocatorPlugin {
     }
 
     return lMap;
+  }
+
+  public static void transferConversion(LocatedMapWithXml lMap, Conversion conversion) throws Exception {
+    
+    BeanUtil.transferValue(conversion, lMap, "factor", "factor", 1.0);
+    BeanUtil.transferValue(conversion, lMap, "offset", "offset", 0.0);
+    BeanUtil.transferValue(conversion, lMap, "width", "width", 1);
+
+    if (conversion != null && "LoHi".equals(conversion.getEndianness())) {
+      lMap.setEndianness(Endianness.BIGENDIAN);
+    }
+    else {
+      lMap.setEndianness(Endianness.LITTLEENDIAN);
+    }
+
+    BeanUtil.transferValue(conversion, lMap, "signed", "signed", false);
   }
 
   private static int getAddress(byte[] binary, Address address, int patternLocation) {
@@ -186,11 +195,18 @@ public class Me7XmlPlugin implements LocatorPlugin {
   private static class LocatedMapWithXml extends LocatedMap {
     private Map map;
 
-    private void setAxis(byte[] binary) {
+    private void setAxis(byte[] binary) throws Exception {
       if (!isAxis()) {
         setAxis(true);
         if (map.getLength() == null) {
           setLength(getWidth() == 1 ? binary[getAddress()] & 0xFF : Me7XmlPlugin.getInt(binary, getAddress()));
+          
+          if (getWidth() == 2 && getLength() > 255) {
+            setWidth(1);
+            setLength(binary[getAddress()] & 0xFF);
+            transferConversion(this, map.getConversion().getAlt());
+          }
+          
           setAddress(getAddress() + getWidth());
         }
       }
