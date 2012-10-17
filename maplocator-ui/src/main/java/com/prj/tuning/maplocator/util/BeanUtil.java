@@ -28,13 +28,17 @@ public class BeanUtil {
   public static void transferValue(Object fromBean, Object toBean, String fromField, String toField, Object defValue) throws Exception {
     Object value = fromBean;
     
-    String[] fromFieldArr = fromField.split("\\.");
-    for (String curField : fromFieldArr) {
-      value = value.getClass().getMethod("get" + curField.substring(0, 1).toUpperCase() + curField.substring(1)).invoke(value);
-      if (value == null) {
-        value = defValue;
-        break;
+    if (value != null) {
+      String[] fromFieldArr = fromField.split("\\.");
+      for (String curField : fromFieldArr) {
+        value = value.getClass().getMethod("get" + curField.substring(0, 1).toUpperCase() + curField.substring(1)).invoke(value);
+        if (value == null) {
+          value = defValue;
+          break;
+        }
       }
+    } else {
+      value = defValue;
     }
     
     String methodName = "set" + toField.substring(0, 1).toUpperCase() + toField.substring(1);

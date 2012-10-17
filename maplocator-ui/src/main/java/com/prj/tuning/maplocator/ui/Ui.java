@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.TreeMap;
 
 import javax.xml.bind.JAXBException;
 
@@ -175,17 +176,30 @@ public class Ui {
   private class AnalyzeCallback implements PluginCallback {
     public synchronized void handleMaps(Collection<? extends LocatedMap> maps) {
       currentMaps.addAll(maps);
-      for (LocatedMap map : maps) {
-        TableItem item = new TableItem(mapTable, SWT.None);
-        item.setText(new String[] {map.getId(), String.format("0x%X", map.getAddress())});
-      }
+      populateTable(maps);
       callbacksLeft--;
       
       if (callbacksLeft == 0) {
         if (currentMaps.size() > 0) {
+          // Sort
+          TreeMap<String, LocatedMap> sortedMaps = new TreeMap<String, LocatedMap>();
+          for (LocatedMap map : currentMaps) {
+            sortedMaps.put(map.getId(), map);
+          }
+          mapTable.removeAll();
+          populateTable(sortedMaps.values());
+          
+          // Enable dump
           xdfDumpButton.setEnabled(true);
         }
         setStatus("Ready...");
+      }
+    }
+
+    public void populateTable(Collection<? extends LocatedMap> maps) {
+      for (LocatedMap map : maps) {
+        TableItem item = new TableItem(mapTable, SWT.None);
+        item.setText(new String[] {map.getId(), String.format("0x%X", map.getAddress())});
       }
     }
   }
