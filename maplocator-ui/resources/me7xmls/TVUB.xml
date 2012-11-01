@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
 	<id>TVUB</id>
 	<pattern>C2 FC XX XX E6 FD XX XX E6 FE MMXX XX C2 FF XX XX DA XX XX XX D7 XX30 FF FF</pattern>
+	<pattern>E6 XX FF FF XX10 C2 FC XX XX E6 FD XX XX E6 FE MMXX XX C2 FF XX XX DA 00</pattern>
 	<conversion>
 		<factor>0.002667</factor>
 		<endianness>LoHi</endianness>
