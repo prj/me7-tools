@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>CWOBD</id>
+	<pattern>D7 40 06 02 F3 F8 MMXX 01 E4 89 02 00 E1 38 EA 00</pattern>
+	<address>
+		<dppOffset>-4</dppOffset>
+	</address>
+</map>

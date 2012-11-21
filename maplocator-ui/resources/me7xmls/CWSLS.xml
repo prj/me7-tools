@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>CWSLS</id>
+	<pattern>9A XX XX XX 9A XX XX XX D7 40 06 02 XX XX MMXX 01</pattern>
+	<address>
+		<dppOffset>-4</dppOffset>
+	</address>
+</map>
