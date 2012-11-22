@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -22,7 +25,7 @@ import com.prj.tuning.maplocator.util.Logger;
 public class Me7XmlPlugin implements LocatorPlugin {
   private static Logger log = new Logger(Me7XmlPlugin.class);
 
-  public Collection<? extends LocatedMap> locateMaps(byte[] binary) {
+  public Collection<? extends LocatedMap> locateMaps(final byte[] binary) {
     PatternMatcher.clearCache();
     HashMap<String, LocatedMapWithXml> maps = new HashMap<String, LocatedMapWithXml>();
 
@@ -32,10 +35,14 @@ public class Me7XmlPlugin implements LocatorPlugin {
 
       File xmls = new File(System.getProperty("xml.override.dir", "me7xmls"));
       HashSet<String> axisIds = new HashSet<String>();
+      
+      Collection<Map> mapFiles = new HashSet<Map>();
+      
+      ExecutorService pool = Executors.newCachedThreadPool();
 
       for (File file : xmls.listFiles()) {
         if (file.getName().toLowerCase().endsWith(".xml")) {
-          Map map = ((JAXBElement<Map>) unmarshaller.unmarshal(file)).getValue();
+          final Map map = ((JAXBElement<Map>) unmarshaller.unmarshal(file)).getValue();
           if (map.getColAxis() != null) {
             axisIds.addAll(map.getColAxis().getId());
           }
@@ -43,11 +50,32 @@ public class Me7XmlPlugin implements LocatorPlugin {
           if (map.getRowAxis() != null) {
             axisIds.addAll(map.getRowAxis().getId());
           }
+          
+          mapFiles.add(map);
 
-          LocatedMapWithXml lMap = getLocatedMap(map, binary);
-          if (lMap != null) {
-            maps.put(lMap.getId(), lMap);
-          }
+          // Pre-cache patterns (threaded search)
+          pool.execute(new Runnable() {
+            @Override
+            public void run() {
+              for (String pattern : map.getPattern()) {
+                if (PatternMatcher.findPattern(pattern, binary) != -1) break;
+              } 
+            }
+          });
+        }
+      }
+      
+      log.log("Pre-caching patterns...");
+      
+      pool.shutdown();
+      while (!pool.isShutdown()) pool.awaitTermination(1, TimeUnit.SECONDS);
+      
+      log.log("Patterns cached.");
+      
+      for (Map map : mapFiles) {
+        LocatedMapWithXml lMap = getLocatedMap(map, binary);
+        if (lMap != null) {
+          maps.put(lMap.getId(), lMap);
         }
       }
 

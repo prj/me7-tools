@@ -22,7 +22,7 @@ public class OlsProject extends Project {
   @Override
   public Project parse() throws IOException {
     projectData = BinaryUtil.readFile(projectUrl);
-    BinaryUtil.skip(projectData, 1372);
+    BinaryUtil.skip(projectData, 0x5E6);
     maps = new HashSet<PMap>();
     
     try {
