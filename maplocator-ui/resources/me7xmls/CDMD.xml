@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
-	<id>CDSLS</id>
-	<pattern>E6 F4 FF FD 64 F4 XX 8B D7 40 06 02 C2 F4 MMXX 01 68 41 2D 04 E0 14 74 F4 XX 8B 0D 04</pattern>
-	<pattern>D7 40 XX XX C2 F4 MMXX XX 68 41 2D 05 E6 F4 00 04 74 F4</pattern>
+	<id>CDMD***</id>
+	<pattern>E6 F4 FF FE 64 F4 XX 8B D7 40 06 02 C2 F4 MMXX 01 68 41 2D 04 E0 14 74 F4 XX 8B 0D 04</pattern>
 	<address>
 		<dppOffset>-4</dppOffset>
 	</address>
