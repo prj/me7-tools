@@ -128,7 +128,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 	}
 
 	private static int getInt(byte[] binary, int offset) {
-		return new BigInteger(new byte[] { binary[offset + 1], binary[offset] })
+		return new BigInteger(1, new byte[] { binary[offset + 1], binary[offset] })
 				.intValue() & 0x0000FFFF;
 	}
 
@@ -215,7 +215,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		int addr = 0;
 		if (address != null) {
 			if (address.getDpp() != null) {
-				dpp = new BigInteger(address.getDpp()).intValue() & 0x0000FFFF;
+				dpp = new BigInteger(1, address.getDpp()).intValue() & 0x0000FFFF;
 			}
 			if (address.getDppOffset() != null) {
 				int loc = patternLocation + address.getDppOffset();
