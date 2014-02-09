@@ -14,6 +14,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 
+import org.reflections.scanners.ConvertersScanner;
+
 import com.prj.tuning.maplocator.model.LocatedMap;
 import com.prj.tuning.maplocator.model.LocatedMap.Endianness;
 import com.prj.tuning.maplocator.plugin.jaxb.Address;
@@ -118,7 +120,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 						i.remove();
 					}
 				}
-
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -128,7 +130,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 	}
 
 	private static int getInt(byte[] binary, int offset) {
-		return new BigInteger(1, new byte[] { binary[offset + 1], binary[offset] })
+		return new BigInteger(new byte[] { binary[offset + 1], binary[offset] })
 				.intValue() & 0x0000FFFF;
 	}
 
@@ -141,22 +143,29 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		int patternLocation = 0;
 
 		// Find pattern
-		if (map.getPattern() != null) {
-			for (String pattern : map.getPattern()) {
-				if ((patternLocation = PatternMatcher.findPattern(pattern,
-						binary)) != -1)
-					break;
+		if (map.getPattern() != null && !map.getPattern().isEmpty()) {
+			if (!map.getPattern().get(0).isEmpty() && !map.getPattern().get(0).equals("xx"))
+			{
+				for (String pattern : map.getPattern()) {
+					if ((patternLocation = PatternMatcher.findPattern(pattern,
+							binary)) != -1)
+						break;
+				}
+	
+				if (patternLocation == -1) {
+					log.log("Pattern for " + map.getId() + " not found.");
+					return null;
+				}
+	
+				log.log("Pattern for " + map.getId() + " found at: "
+						+ String.format("0x%X", patternLocation));
+				lMap.setAddress(getAddress(binary, map.getAddress(),
+						patternLocation, map.getEcuvar() != null ? map.getEcuvar() : false));
 			}
-
-			if (patternLocation == -1) {
+			else {
 				log.log("Pattern for " + map.getId() + " not found.");
 				return null;
 			}
-
-			log.log("Pattern for " + map.getId() + " found at: "
-					+ String.format("0x%X", patternLocation));
-			lMap.setAddress(getAddress(binary, map.getAddress(),
-					patternLocation));
 		}
 
 		lMap.setId(map.getId());
@@ -170,7 +179,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 				lMap.setLength(map.getLength().getHardcoded().intValue());
 			} else {
 				int lenAddr = getAddress(binary, map.getLength().getAddress(),
-						patternLocation);
+						patternLocation, map.getEcuvar() != null ? map.getEcuvar() : false);
 				int len = map.getLength().getWidth() == null ? 1 : map
 						.getLength().getWidth();
 				lMap.setLength(len == 1 ? binary[lenAddr] & 0xFF : getInt(
@@ -178,6 +187,11 @@ public class Me7XmlPlugin implements LocatorPlugin {
 			}
 		}
 
+		lMap.setEcuvar(map.getEcuvar() != null ? map.getEcuvar() : false);
+		lMap.setPrecision(map.getPrecision() != null ? map.getPrecision() : 0);
+		lMap.setDesc(map.getDesc() != null ? map.getDesc() : "");
+		lMap.setUnits(map.getUnits() != null ? map.getUnits() : "");
+		
 		return lMap;
 	}
 
@@ -198,7 +212,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 	}
 
 	private static int getAddress(byte[] binary, Address address,
-			int patternLocation) {
+			int patternLocation, boolean ecuVar) {
 		int dpp = 0;
 		switch (m) {
 		case AUDI:
@@ -215,6 +229,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		int addr = 0;
 		if (address != null) {
 			if (address.getDpp() != null) {
+				//Fixed bug where DPP treated as signed value by using signum specifier for BigInteger
 				dpp = new BigInteger(1, address.getDpp()).intValue() & 0x0000FFFF;
 			}
 			if (address.getDppOffset() != null) {
@@ -229,14 +244,22 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		} else {
 			addr = getInt(binary, patternLocation);
 		}
-
+		
+		int addrOffset = 0;
+		if (address != null && address.getAddrOffset() != null)
+		{
+			addrOffset = address.getAddrOffset();
+		}
 		switch (m) {
 		case AUDI:
-			return dpp * 0x4000 - 0x800000 + addr;
+			if (!ecuVar)
+				return dpp * 0x4000 - 0x800000 + addr + addrOffset;
+			else
+				return dpp * 0x4000 + addr + addrOffset;
 		case VOLVO:
-			return dpp * 0x4000 + addr;
+			return dpp * 0x4000 + addr + addrOffset;
 		default:
-			return dpp * 0x4000 - 0x800000 + addr;
+			return dpp * 0x4000 - 0x800000 + addr + addrOffset;
 		}
 
 	}
@@ -275,8 +298,11 @@ public class Me7XmlPlugin implements LocatorPlugin {
 					@Override
 					public void run() {
 						for (String pattern : map.getPattern()) {
-							if (PatternMatcher.findPattern(pattern, binary) != -1)
-								break;
+							if (!pattern.isEmpty() && !pattern.equals("xx"))
+							{
+								if (PatternMatcher.findPattern(pattern, binary) != -1)
+									break;
+							}
 						}
 					}
 				});

@@ -1,8 +1,11 @@
 package com.prj.tuning.maplocator.model;
 
-public class LocatedMap {
+public class LocatedMap implements Comparable<LocatedMap> {
   private int address;
+  private String desc;
   private String id;
+  private String units;
+  private int precision;
   private Endianness endianness;
   private double offset;
   private double factor;
@@ -12,6 +15,7 @@ public class LocatedMap {
   private LocatedMap yAxis;
   private boolean signed;
   private boolean axis;
+  private boolean ecuvar;
   
   public enum Endianness {
     BIGENDIAN, LITTLEENDIAN;
@@ -103,5 +107,48 @@ public class LocatedMap {
 
   public void setAxis(boolean axis) {
     this.axis = axis;
+  }
+  public String getDesc()
+  {
+	  return desc;
+  }
+  public void setDesc(String desc)
+  {
+	this.desc = desc;  
+  }
+  public String getUnits()
+  {
+	  return units;
+  }
+  public void setUnits(String units)
+  {
+	  this.units = units;
+  }
+  public int getPrecision()
+  {
+	  return precision;
+  }
+  public void setPrecision(int precision)
+  {
+	  this.precision = precision;
+  }
+  public Boolean isEcuvar()
+  {
+	  return ecuvar;
+  }
+  public void setEcuvar(Boolean ecuvar)
+  {
+	  this.ecuvar = ecuvar;
+  }
+  
+  /**
+   * Compares an external instance of an object to the current instance.
+   * @param t The object that is being compared to the current instance.
+   * @return Returns 0 if the objects are equal, greater than 0 if the current
+   * object is greater, and less than 0 if the current object if less.
+   */
+  @Override
+  public int compareTo(LocatedMap t) {
+      return id.compareTo(t.id);
   }
 }

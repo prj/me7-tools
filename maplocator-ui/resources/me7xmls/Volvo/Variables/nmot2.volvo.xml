@@ -1,0 +1,17 @@
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+  <id>nmot2</id>
+  <pattern>75 10 20 45 C2 F5 MMXX XX 40 54</pattern>
+  <address>
+    <dpp>00</dpp>
+  </address>
+  <conversion>
+    <factor>40</factor>
+    <offset>0</offset>
+    <width>1</width>
+    <endianness>LoHi</endianness>
+  </conversion>
+  <desc>Engine Speed</desc>
+  <units>RPM</units>
+  <precision>1</precision>
+  <ecuvar>true</ecuvar>
+</map>

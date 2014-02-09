@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *         &lt;choice minOccurs="0">
  *           &lt;element name="dpp" type="{http://www.w3.org/2001/XMLSchema}hexBinary"/>
  *           &lt;element name="dppOffset" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *           &lt;element name="addrOffset" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;/choice>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -44,7 +45,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "address", propOrder = {
     "offset",
     "dpp",
-    "dppOffset"
+    "dppOffset",
+    "addrOffset"
 })
 public class Address {
 
@@ -54,6 +56,7 @@ public class Address {
     @XmlSchemaType(name = "hexBinary")
     protected byte[] dpp;
     protected Integer dppOffset;
+    protected Integer addrOffset;
 
     /**
      * Gets the value of the offset property.
@@ -125,6 +128,29 @@ public class Address {
      */
     public void setDppOffset(Integer value) {
         this.dppOffset = value;
+    }
+    /**
+     * Gets the value of the addrOffset property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getAddrOffset() {
+        return addrOffset;
+    }
+
+    /**
+     * Sets the value of the addrOffset property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setAddrOffset(Integer value) {
+        this.addrOffset = value;
     }
 
 }

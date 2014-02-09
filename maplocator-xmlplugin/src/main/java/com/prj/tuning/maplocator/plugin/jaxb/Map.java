@@ -10,9 +10,11 @@ package com.prj.tuning.maplocator.plugin.jaxb;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -37,6 +39,10 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="length" type="{http://prj-tuning.com/mapdef}length" minOccurs="0"/>
  *         &lt;element name="rowAxis" type="{http://prj-tuning.com/mapdef}axisref" minOccurs="0"/>
  *         &lt;element name="colAxis" type="{http://prj-tuning.com/mapdef}axisref" minOccurs="0"/>
+ *         &lt;element name="desc" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="units" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="precision" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="ecuvar" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -45,6 +51,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
+//@XmlRootElement(namespace="http://prj-tuning.com/mapdef")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "map", propOrder = {
     "id",
@@ -55,7 +62,11 @@ import javax.xml.bind.annotation.XmlType;
     "conversion",
     "length",
     "rowAxis",
-    "colAxis"
+    "colAxis",
+    "desc",
+    "units",
+    "precision",
+    "ecuvar"
 })
 public class Map {
 
@@ -69,7 +80,10 @@ public class Map {
     protected Length length;
     protected Axisref rowAxis;
     protected Axisref colAxis;
-
+    protected String desc;
+    protected String units;
+    protected Integer precision;
+    protected Boolean ecuvar;
     /**
      * Gets the value of the id property.
      * 
@@ -291,4 +305,100 @@ public class Map {
         this.colAxis = value;
     }
 
+    /**
+     * Gets the value of the desc property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDesc()
+    {
+  	  return desc;
+    }
+    /**
+     * Sets the value of the desc property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDesc(String desc)
+    {
+  	this.desc = desc;  
+    }
+    /**
+     * Gets the value of the units property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUnits()
+    {
+  	  return units;
+    }
+    /**
+     * Sets the value of the units property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUnits(String units)
+    {
+  	  this.units = units;
+    }
+    /**
+     * Gets the value of the precision property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getPrecision()
+    {
+  	  return precision;
+    }
+    /**
+     * Sets the value of the precision property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setPrecision(Integer precision)
+    {
+  	  this.precision = precision;
+    }
+    /**
+     * Gets the value of the ecuvar property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean getEcuvar()
+    {
+  	  return ecuvar;
+    }
+    /**
+     * Sets the value of the ecuvar property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setEcuvar(Boolean ecuvar)
+    {
+  	  this.ecuvar = ecuvar;
+    }
 }
