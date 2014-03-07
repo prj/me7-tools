@@ -36,7 +36,8 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<copy file="target/${project.build.finalName}.jar" tofile="../maplocator-ui/maplocator-release/lib/maplocator-xmlplugin.jar" />
+								<copy file="target/${project.build.finalName}.jar"
+									tofile="../maplocator-ui/maplocator-release/lib/maplocator-xmlplugin.jar" />
 							</tasks>
 						</configuration>
 					</execution>

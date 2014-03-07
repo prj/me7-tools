@@ -1,0 +1,17 @@
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+  <id>nvquot_w</id>
+  <pattern>E6 F3 FF FF F6 F3 MMXX XX F0 C3 E0 0D 49 E1</pattern>
+  <address>
+    <dpp>DE</dpp>
+  </address>
+  <conversion>
+    <factor>0.007813</factor>
+    <offset>0</offset>
+    <width>2</width>
+    <endianness>LoHi</endianness>
+  </conversion>
+  <desc>Engine Speed nmot / Vehicle Speed vfzg</desc>
+  <units>%</units>
+  <precision>2</precision>
+  <ecuvar>true</ecuvar>
+</map>
