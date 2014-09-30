@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>CDKAT</id>
+	<pattern>D7 40 XX XX C2 F4 MMXX XX 68 41 2D 05 E6 F4 00 01 74 F4</pattern>
+	<address>
+		<dppOffset>-4</dppOffset>
+	</address>
+</map>

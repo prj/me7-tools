@@ -12,6 +12,7 @@ import java.util.Properties;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
+import com.prj.tuning.ProjectFactory;
 import com.prj.tuning.maplocator.locator.LocatorChain;
 import com.prj.tuning.maplocator.model.DummyProject;
 import com.prj.tuning.maplocator.model.LocatedMap;
@@ -30,13 +31,7 @@ public class Maplocator {
     fis.close();
     
     // Read OLS project
-    File file = new File(args[0]);
-    Project p;
-    if (file.getName().toLowerCase().endsWith(".ols")) {
-      p = new com.prj.tuning.olsproject.OlsProject(file.toURI().toURL()).parse();
-    } else {
-      p = new Project(file.toURI().toURL()).parse();
-    }
+    Project p = ProjectFactory.getProject(new File(args[0]).toURI().toURL()).parse();
     
     // Read source bin
     File f = new File(args[1]);

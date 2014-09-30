@@ -5,6 +5,7 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
+import com.prj.tuning.ProjectFactory;
 import com.prj.tuning.mappack.Project;
 import com.prj.tuning.xdf.binding.XdfProject;
 import com.prj.tuning.xdf.olsimpl.OlsProject;
@@ -12,7 +13,7 @@ import com.prj.tuning.xdf.olsimpl.OlsProject;
 public class KpToXdf {
 
   public static void main(String[] args) throws Exception {
-    Project p = new com.prj.tuning.olsproject.OlsProject(new File(args[0]).toURI().toURL()).parse();
+    Project p = ProjectFactory.getProject(new File(args[0]).toURI().toURL()).parse();
 
     JAXBContext ctx = JAXBContext.newInstance(XdfProject.class);
     Marshaller marshaller = ctx.createMarshaller();
