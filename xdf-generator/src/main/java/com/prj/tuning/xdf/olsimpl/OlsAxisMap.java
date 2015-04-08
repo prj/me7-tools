@@ -1,9 +1,11 @@
 package com.prj.tuning.xdf.olsimpl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.prj.tuning.mappack.map.Axis;
+import com.prj.tuning.mappack.map.Axis.DataSource;
 import com.prj.tuning.xdf.binding.XdfAxis;
 import com.prj.tuning.xdf.binding.XdfCategoryMem;
 import com.prj.tuning.xdf.binding.XdfEmbedded;
@@ -100,7 +102,38 @@ public class OlsAxisMap extends XdfTable {
 
       @Override
       public List<XdfMath> getXdfMath() {
-        return Arrays.asList(new XdfMath[] {new OlsMath(axis.getValue())});
+        if (DataSource.EPROM_SUBTRACT == axis.getDataSource() && axis.getLength() > 1) {
+          List<XdfMath> values = new ArrayList<XdfMath>();
+          for (int i = 0; i < axis.getLength()-1; i++) {
+            final int cur = i;
+            values.add(new XdfMath() {
+              @Override
+              public String getXdfEquation() {
+                return "CELL(ROW()+1;COL();FALSE) - (THIS()*" + axis.getValue().getFactor() + ")";
+              }
+
+              @Override
+              public String getXdfRow() {
+                return String.valueOf(cur + 1);
+              }
+            });
+          }
+          
+          values.add(new XdfMath() {
+            @Override
+            public String getXdfEquation() {
+               return axis.getValue().getOffset() + "+(256-THIS())*" + axis.getValue().getFactor();
+            }
+
+            @Override
+            public String getXdfRow() {
+              return String.valueOf(axis.getLength());
+            }
+          });
+          return values;
+        } else {
+          return Arrays.asList(new XdfMath[] {new OlsMath(axis.getValue())});
+        }
       }
     };
   }

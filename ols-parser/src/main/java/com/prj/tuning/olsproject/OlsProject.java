@@ -21,18 +21,28 @@ public class OlsProject extends Project {
 
   @Override
   public Project parse() throws IOException {
-    projectData = BinaryUtil.readFile(projectUrl);
-    BinaryUtil.skip(projectData, 0x5E6);
+    int i = 0x5F9;
     maps = new HashSet<PMap>();
-    
-    try {
-      while (true) {
-        maps.add(new OlsPMap().parse(projectData));
+    while (maps.size() == 0) {
+      System.err.println("Trying offset: " + String.format("0x%X", i));
+      projectData = BinaryUtil.readFile(projectUrl);
+      BinaryUtil.skip(projectData, i);
+      maps = new HashSet<PMap>();
+      
+      i++;
+      
+      try {
+        while (true) {
+          maps.add(new OlsPMap().parse(projectData));
+        }
+      } catch (Exception e) {
+        header = new OlsHeader(maps.size());
+        if (maps.size() > 10) {
+          return this;
+        }
       }
-    } catch (IllegalStateException e) {
-      header = new OlsHeader(maps.size());
-      return this;
     }
+    return this;
   }
   
   public static void main(String[] args) throws Exception {

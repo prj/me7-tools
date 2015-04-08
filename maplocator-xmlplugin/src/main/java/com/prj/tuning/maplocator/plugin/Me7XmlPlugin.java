@@ -134,7 +134,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
     return maps.values();
   }
 
-  private static int getInt(byte[] binary, int offset) {
+  public static int getInt(byte[] binary, int offset) {
     return new BigInteger(new byte[] { binary[offset + 1], binary[offset] }).intValue() & 0x0000FFFF;
   }
 

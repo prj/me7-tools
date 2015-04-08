@@ -12,6 +12,11 @@ public abstract class XdfTable {
 
   @XmlElement(name = "title")
   public abstract String getTitle();
+  
+  @XmlElement(name = "description")
+  public String getDescription() {
+	  return null;
+  }
 
   @XmlElementRef
   public abstract XdfAxis getRowAxis();
@@ -23,5 +28,7 @@ public abstract class XdfTable {
   public abstract XdfAxis getValueAxis();
   
   @XmlElementRef
-  public abstract XdfCategoryMem getCategory();
+  public XdfCategoryMem getCategory() {
+	  return null;
+  }
 }

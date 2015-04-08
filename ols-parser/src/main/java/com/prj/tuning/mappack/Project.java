@@ -30,6 +30,8 @@ public class Project {
 
       maps = new HashSet<PMap>();
 
+      System.err.println(String.format("0x%X", projectData.position()));
+      
       for (int i = 0; i < header.getMapCount(); i++) {
         maps.add(new PMap().parse(projectData));
       }
