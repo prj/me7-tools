@@ -6,8 +6,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "XDFAXIS")
+@XmlType(propOrder = {"dimension", "decimalpl", "xdfIndexcount", "embedded", "xdfMath", "xdfEmbedInfo", "labels"})
 public abstract class XdfAxis {
 
   @XmlAttribute(name = "id")
@@ -36,5 +38,10 @@ public abstract class XdfAxis {
   @XmlElementRef
   public XdfEmbedInfo getXdfEmbedInfo() {
     return null;
+  }
+  
+  @XmlElementRef
+  public List<XdfLabel> getLabels() {
+	  return null;
   }
 }

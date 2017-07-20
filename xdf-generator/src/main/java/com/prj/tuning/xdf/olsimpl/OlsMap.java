@@ -31,7 +31,7 @@ public class OlsMap extends XdfTable {
 
   @Override
   public String getTitle() {
-    return map.getId() + " - " + map.getName();
+    return String.format(XdfProject.ADDRESS_FORMAT, map.getAddress()) + " - " + map.getId() + " - " + map.getName();
   }
 
   @Override

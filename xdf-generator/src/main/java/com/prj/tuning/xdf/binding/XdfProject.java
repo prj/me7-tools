@@ -21,4 +21,8 @@ public abstract class XdfProject {
   @XmlElementRef
   public abstract Collection<XdfTable> getTables();
 
+  @XmlElementRef
+  public abstract Collection<XdfConstant> getConstants();
+
+
 }

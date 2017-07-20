@@ -10,5 +10,6 @@
   	<module>mapsearch</module>
   	<module>maplocator-ui</module>
   	<module>maplocator-xmlplugin</module>
+  	<module>maplocator-me7plugin</module>
   </modules>
 </project>

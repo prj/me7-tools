@@ -1,6 +1,7 @@
 package com.prj.tuning.xdf.olsimpl;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.TreeSet;
 
 import com.prj.tuning.mappack.Project;
 import com.prj.tuning.mappack.map.PMap;
+import com.prj.tuning.xdf.binding.XdfConstant;
 import com.prj.tuning.xdf.binding.XdfHeader;
 import com.prj.tuning.xdf.binding.XdfProject;
 import com.prj.tuning.xdf.binding.XdfTable;
@@ -65,5 +67,10 @@ public class OlsProject extends XdfProject {
     }
     return tables;
   }
+
+	@Override
+	public Collection<XdfConstant> getConstants() {
+		return Collections.emptySet();
+	}
 
 }
