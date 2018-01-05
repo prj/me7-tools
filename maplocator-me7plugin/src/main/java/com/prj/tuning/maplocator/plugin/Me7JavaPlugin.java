@@ -1,5 +1,6 @@
 package com.prj.tuning.maplocator.plugin;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class Me7JavaPlugin implements LocatorPlugin {
     int address = PatternMatcher.findPattern("E6 XX MMXX XX C2 XX XX XX C2 XX XX XX DA 00 XX XX F7 XX XX XX C0 84 5C 74", binary);
     
     if (address != -1) {
-      address = 0x204 * 0x4000 - 0x800000 + Me7XmlPlugin.getInt(binary, address);
+      address = 0x204 * 0x4000 - 0x800000 + Me7JavaPlugin.getInt(binary, address);
       
       LocatedMap map = new LocatedMap();
       map.setId("KFKHFM");
@@ -54,5 +55,10 @@ public class Me7JavaPlugin implements LocatorPlugin {
     }
     
     return locatedMaps;
+  }
+
+  private static int getInt(byte[] binary, int offset) {
+    return new BigInteger(1, new byte[] { binary[offset + 1], binary[offset] })
+		.intValue() & 0x0000FFFF;
   }
 }
