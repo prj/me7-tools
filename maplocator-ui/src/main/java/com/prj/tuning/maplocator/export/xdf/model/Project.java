@@ -11,12 +11,14 @@ import com.prj.tuning.xdf.binding.XdfHeader;
 import com.prj.tuning.xdf.binding.XdfProject;
 import com.prj.tuning.xdf.binding.XdfRegion;
 import com.prj.tuning.xdf.binding.XdfTable;
+import com.prj.tuning.xdf.binding.XdfConstant;
 import com.prj.tuning.xdf.olsimpl.OlsAxisMap;
 import com.prj.tuning.xdf.olsimpl.OlsProject;
 
 public class Project extends XdfProject {
   
   private Collection<XdfTable> tables = new HashSet<XdfTable>();
+  private Collection<XdfConstant> constants = new HashSet<XdfConstant>();
   private int size;
   
   public Project(Collection<LocatedMap> locatedMaps, int size) {
@@ -71,4 +73,8 @@ public class Project extends XdfProject {
     return tables;
   }
 
+  @Override
+  public Collection<XdfConstant> getConstants() {
+    return constants;
+  }
 }
