@@ -349,6 +349,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		private void setAxis(byte[] binary) throws Exception {
 			if (!isAxis()) {
 				setAxis(true);
+				if (Me7XmlPlugin.m == Me7XmlPlugin.Make.SMART) setAddress(getAddress() + 2);
 				if (map.getLength() == null) {
 					setLength(getWidth() == 1 ? binary[getAddress()] & 0xFF
 							: Me7XmlPlugin.getInt(binary, getAddress()));
