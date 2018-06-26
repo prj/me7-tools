@@ -3,6 +3,7 @@ package com.prj.tuning.maplocator.model;
 public class LocatedMap {
   private int address;
   private String id;
+  private String title;
   private Endianness endianness;
   private double offset;
   private double factor;
@@ -31,6 +32,14 @@ public class LocatedMap {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
   }
 
   public Endianness getEndianness() {

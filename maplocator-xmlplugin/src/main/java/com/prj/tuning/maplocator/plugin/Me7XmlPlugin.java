@@ -166,6 +166,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		}
 
 		lMap.setId(map.getId());
+		lMap.setTitle(map.getTitle());
 
 		// Conversion
 		transferConversion(lMap, map.getConversion());
