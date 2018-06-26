@@ -2,6 +2,7 @@ package com.prj.tuning.maplocator.export.xdf.model;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Locale;
 
 import com.prj.tuning.xdf.binding.XdfMath;
 import com.prj.tuning.xdf.binding.XdfMathVar;
@@ -17,7 +18,7 @@ public class TableMath extends XdfMath {
 
   @Override
   public String getXdfEquation() {
-    return String.format("%f+X*%f", offset, factor);
+    return String.format(Locale.US, "%f+X*%f", offset, factor);
   }
 
   @Override

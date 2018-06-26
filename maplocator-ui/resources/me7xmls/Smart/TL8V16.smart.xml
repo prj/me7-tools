@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>TL8V16</id>
+	<pattern>F2 F4 MMXX XX F2 F5 XX XX E6 F7 10 00 E6 F1 XX XX 8A XX XX XX E6 F1 XX XX|F6 F5 XX XX E6 F1 MMXX XX C2 F4 XX XX C2 F5 $$0 DA</pattern>
+</map>

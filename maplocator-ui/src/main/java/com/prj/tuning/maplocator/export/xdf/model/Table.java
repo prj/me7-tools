@@ -27,7 +27,7 @@ public class Table extends XdfTable {
 
   @Override
   public String getTitle() {
-    return locatedMap.getId();
+    return locatedMap.getTitle()!= null ? locatedMap.getTitle() : locatedMap.getId();
   }
 
   @Override

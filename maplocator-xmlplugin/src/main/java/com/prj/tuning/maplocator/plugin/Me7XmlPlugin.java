@@ -29,13 +29,19 @@ public class Me7XmlPlugin implements LocatorPlugin {
 	public Collection<? extends LocatedMap> locateMaps(final byte[] binary) {
 		PatternMatcher.clearCache();
 		HashMap<String, LocatedMapWithXml> maps = new HashMap<String, LocatedMapWithXml>();
+		
+		m = Make.AUDI;
 
 		byte[] volvoSearch = { 0x56, 0x4F, 0x4C, 0x56, 0x4F };	//Pattern "VOLVO"
 		boolean volvo = indexOf(binary, volvoSearch) > -1;
 		if (volvo) {
 			m = Make.VOLVO;
-		} else {
-			m = Make.AUDI;
+		}
+
+		byte[] smartSearch = { 0x30, 0x32, 0x36, 0x31, 0x32, 0x30, 0x35, 0x30, 0x30 };	//Pattern "026120500"
+		boolean smart = indexOf(binary, smartSearch) > -1;
+		if (smart) {
+			m = Make.SMART;
 		}
 		
 		try {
@@ -160,6 +166,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		}
 
 		lMap.setId(map.getId());
+		lMap.setTitle(map.getTitle());
 
 		// Conversion
 		transferConversion(lMap, map.getConversion());
@@ -205,6 +212,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 			dpp = 0x204;
 			break;
 		case VOLVO:
+		case SMART:
 			dpp = 0x4;
 			break;
 		default:
@@ -234,6 +242,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		case AUDI:
 			return dpp * 0x4000 - 0x800000 + addr;
 		case VOLVO:
+		case SMART:
 			return dpp * 0x4000 + addr;
 		default:
 			return dpp * 0x4000 - 0x800000 + addr;
@@ -252,6 +261,9 @@ public class Me7XmlPlugin implements LocatorPlugin {
 			break;
 		case VOLVO:
 			ext = "volvo.xml";
+			break;
+		case SMART:
+			ext = "smart.xml";
 			break;
 		default:
 			ext = "audi.xml";
@@ -338,6 +350,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		private void setAxis(byte[] binary) throws Exception {
 			if (!isAxis()) {
 				setAxis(true);
+				if (Me7XmlPlugin.m == Me7XmlPlugin.Make.SMART) setAddress(getAddress() + 2);
 				if (map.getLength() == null) {
 					setLength(getWidth() == 1 ? binary[getAddress()] & 0xFF
 							: Me7XmlPlugin.getInt(binary, getAddress()));
@@ -356,7 +369,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 
 	public enum Make {
 
-		AUDI, VOLVO;
+		AUDI, VOLVO, SMART;
 
 		public String value() {
 			return name();
