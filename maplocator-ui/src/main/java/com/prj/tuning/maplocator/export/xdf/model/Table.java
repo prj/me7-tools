@@ -22,7 +22,7 @@ public class Table extends XdfTable {
 
   @Override
   public String getUniqueId() {
-    return String.format(OlsProject.ADDRESS_FORMAT, locatedMap.getAddress());
+    return locatedMap.getId();
   }
 
   @Override
@@ -73,7 +73,7 @@ public class Table extends XdfTable {
           
           @Override
           public String getXdfAddress() {
-            return getUniqueId();
+            return String.format(OlsProject.ADDRESS_FORMAT, locatedMap.getAddress());
           }
           
           @Override
