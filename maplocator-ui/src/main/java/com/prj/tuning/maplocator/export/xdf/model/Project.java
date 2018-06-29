@@ -3,7 +3,9 @@ package com.prj.tuning.maplocator.export.xdf.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.List;
+import java.util.Comparator;
 
 import com.prj.tuning.maplocator.model.LocatedMap;
 import com.prj.tuning.xdf.binding.XdfCategory;
@@ -17,7 +19,11 @@ import com.prj.tuning.xdf.olsimpl.OlsProject;
 
 public class Project extends XdfProject {
   
-  private Collection<XdfTable> tables = new HashSet<XdfTable>();
+  private Collection<XdfTable> tables = new TreeSet<XdfTable>(new Comparator<XdfTable>() {
+    public int compare(XdfTable obj1, XdfTable obj2) {
+        return obj1.getTitle().compareTo(obj2.getTitle());
+     }
+  });
   private Collection<XdfConstant> constants = new HashSet<XdfConstant>();
   private int size;
   
