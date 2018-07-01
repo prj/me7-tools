@@ -22,7 +22,7 @@ public class Table extends XdfTable {
 
   @Override
   public String getUniqueId() {
-    return locatedMap.getId();
+    return String.format(OlsProject.ADDRESS_FORMAT, locatedMap.getId().hashCode());
   }
 
   @Override
