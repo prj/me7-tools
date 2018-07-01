@@ -29,7 +29,7 @@ public class Axis extends XdfAxis {
       
       @Override
       public String getLinkObjId() {
-	return locatedMap.getId();
+	return String.format(OlsProject.ADDRESS_FORMAT, locatedMap.getId().hashCode());
       }
     };
   }
