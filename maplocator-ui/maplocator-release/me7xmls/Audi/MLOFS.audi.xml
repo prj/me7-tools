@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>MLOFS</id>
+	<pattern>E0 XX F2 XX MMXX XX E0 XX 20 XX 30 XX F2</pattern>
+	<pattern>5C XX 70 XX F6 XX XX XX F2 XX XX XX 22 XX MMXX XX 8D 04</pattern>
+	<conversion>
+		<factor>0.1</factor>
+		<width>2</width>
+		<endianness>LoHi</endianness>
+	</conversion>
+</map>

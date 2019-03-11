@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>LDRXNZK_ROWAXIS</id>
+	<pattern>9A XX XX XX C2 F4 XX XX 5C 84 88 40 E6 FC MMXX XX E6 FD XX XX</pattern>
+	<address>
+		<dppOffset>4</dppOffset>
+	</address>
+	<conversion>
+		<factor>0.25</factor>
+		<width>2</width>
+		<endianness>LoHi</endianness>
+	</conversion>
+</map>

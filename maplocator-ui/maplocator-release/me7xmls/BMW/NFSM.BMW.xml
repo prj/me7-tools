@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>NFSM</id>
+	<pattern>FE FF FB E7 D9 XX CC</pattern>
+	<conversion>
+		<endianness>LoHi</endianness>
+	</conversion>
+</map>

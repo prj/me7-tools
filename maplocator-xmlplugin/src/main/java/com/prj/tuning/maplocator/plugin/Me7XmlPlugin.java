@@ -37,6 +37,12 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		if (volvo) {
 			m = Make.VOLVO;
 		}
+		
+		byte[] BMWSearch = { 0x33, 0x35, 0x30, 0x34, 0x37, 0x36 };	//Pattern "BMW"
+		boolean BMW = indexOf(binary, BMWSearch) > -1;
+		if (BMW) {
+			m = Make.BMW;
+		}
 
 		byte[] smartSearch = { 0x30, 0x32, 0x36, 0x31, 0x32, 0x30, 0x35, 0x30, 0x30 };	//Pattern "026120500"
 		boolean smart = indexOf(binary, smartSearch) > -1;
@@ -212,6 +218,10 @@ public class Me7XmlPlugin implements LocatorPlugin {
 			dpp = 0x204;
 			break;
 		case VOLVO:
+			break;
+		case BMW:
+			dpp = 0x204;
+			break;
 		case SMART:
 			dpp = 0x4;
 			break;
@@ -242,6 +252,9 @@ public class Me7XmlPlugin implements LocatorPlugin {
 		case AUDI:
 			return dpp * 0x4000 - 0x800000 + addr;
 		case VOLVO:
+			return dpp * 0x4000 - 0x800000 + addr;
+		case BMW:
+			return dpp * 0x4000 - 0x810000 + addr;
 		case SMART:
 			return dpp * 0x4000 + addr;
 		default:
@@ -261,6 +274,9 @@ public class Me7XmlPlugin implements LocatorPlugin {
 			break;
 		case VOLVO:
 			ext = "volvo.xml";
+			break;
+		case BMW:
+			ext = "bmw.xml";
 			break;
 		case SMART:
 			ext = "smart.xml";
@@ -369,7 +385,7 @@ public class Me7XmlPlugin implements LocatorPlugin {
 
 	public enum Make {
 
-		AUDI, VOLVO, SMART;
+		AUDI, VOLVO, BMW, SMART;
 
 		public String value() {
 			return name();

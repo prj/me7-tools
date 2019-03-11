@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>LAMFA_ROWAXIS</id>
+	<pattern>F2 F4 XX XX 88 40 C2 F5 XX XX 88 50 E6 F4 MMXX XX E6 F5</pattern>
+	<address>
+		<offset>32</offset>
+		<dppOffset>36</dppOffset>
+	</address>
+	<conversion>
+		<factor>40</factor>
+	</conversion>
+	<length>
+		<address>
+			<offset>28</offset>
+			<dppOffset>24</dppOffset>
+		</address>
+	</length>
+</map>

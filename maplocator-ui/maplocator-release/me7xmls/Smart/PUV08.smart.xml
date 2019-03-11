@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>PUV08</id>
+	<title>PUV08 - Ambient Pressure</title>
+	<pattern>F7 FA XX XX F2 F8 XX XX 26 F8 XX XX E6 F9 XX XX 1B 89 F2 FC XX XX 46 FC XX XX FD 05 E7 F1 XX XX F7 F1 XX XX 0D 03 F0 1C F7 F2 XX XX E6 F1 MMXX XX F2 F2 XX XX C0 45 C2 F4 XX XX DA</pattern>
+	<conversion>
+		<factor>1</factor>
+		<signed>false</signed>
+	</conversion>
+</map>

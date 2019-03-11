@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>TWNWS: Time for camshaft angle retard</id>
+	<pattern>66 26 00 02 00 27 00 02 MMXX 00 D0 07 64 00 00 40</pattern>
+</map>

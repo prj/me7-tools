@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>SNM16OPUW</id>
+	<pattern>DB 00 E6 FC XX XX C2 FD XX XX F2 FE XX XX DA 00 XX XX F6 F4 XX XX E6 FC MMXX XX F2 FD XX XX F2 FE XX XX DA 00 XX XX </pattern>
+	<pattern>F6 F4 XX XX E6 FC MMXX XX F2 FD XX XX F2 FE XX XX DA 00 XX XX F6 F4 XX XX E6 FC XX XX C2 FD XX XX DA 00</pattern>
+	<conversion>
+		<endianness>LoHi</endianness>
+	</conversion>
+</map>
