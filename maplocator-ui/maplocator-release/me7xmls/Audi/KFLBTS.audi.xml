@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>KFLBTS</id>
+	<pattern>88 XX E6 FC MMXX XX E6 FD XX XX E6 FE XX XX E6 FF XX XX DA XX XX XX 08 04 XX2 5C 54 D7</pattern>
+	<address>
+		<dppOffset>4</dppOffset>
+	</address>
+	<conversion>
+		<factor>0.007813</factor>
+	</conversion>
+	<rowAxis>
+		<id>SRL12GKUW</id>
+		<id>SRL12GKUB</id>
+	</rowAxis>
+	<colAxis>
+		<id>SNM16GKUB</id>
+	</colAxis>
+</map>

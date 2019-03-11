@@ -1,4 +1,6 @@
+target
 /.settings
-/target
 /.classpath
 /.project
+maplocator-ui/maplocator-release
+.DS_Store

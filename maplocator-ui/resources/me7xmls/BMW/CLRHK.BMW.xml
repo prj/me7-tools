@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>CLRHK</id>
+	<pattern>08 04 F7 F8 XX XX C2 F4 MMXX XX 66 F4 08 00</pattern>
+</map>

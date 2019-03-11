@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>KFFPS</id>
+	<title>KFFPS - Pulsation Correction Load Calculation</title>
+	<pattern>7B FF 5D 02 F2 07 XX XX F6 07 XX XX E6 F1 MMXX XX F2 F4 XX XX F2 F5 XX XX E6 F7 XX XX DA</pattern>
+	<conversion>
+		<factor>1</factor>
+		<signed>false</signed>
+	</conversion>
+ 	<rowAxis>
+		<id>NISTV16</id>
+	</rowAxis>
+	<colAxis>
+		<id>PSV16</id>
+	</colAxis>
+</map>

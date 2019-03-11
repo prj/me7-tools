@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>KFMRESFS</id>
+	<pattern>C8 67 67 67 73 87 A7 B3 B3 C0 C8 C8 C8 5A 5A 5A 6C 80 8D A2 AA B3 C8 C8</pattern>
+</map>

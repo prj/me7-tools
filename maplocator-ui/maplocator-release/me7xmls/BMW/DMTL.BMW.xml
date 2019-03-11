@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>DMTL (Euro flag = 0)</id>
+	<pattern>1F 20 B6 61 45 38 XX 2C 28 28 BF 6E 53</pattern>
+	<conversion>
+		<endianness>LoHi</endianness>
+	</conversion>
+</map>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>KFMIOP</id>
+	<pattern>F0 D7 DA XX XX XX F0 F4 E6 FC MMXX XX E6 FD XX XX F2 FE XX XX DA</pattern>
+	<conversion>
+		<factor>0.001526</factor>
+		<width>2</width>
+		<endianness>LoHi</endianness>
+	</conversion>
+	<rowAxis>
+		<id>SNM16OPUW</id>
+	</rowAxis>
+	<colAxis>
+		<id>SRL11OPUW</id>
+	</colAxis>
+</map>

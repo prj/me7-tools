@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>F1DLDR</id>
+	<title>F1DLDR - Throttle Valve Intervention Level 1</title>
+	<pattern>E6 F1 XX XX 0D 02 E6 F1 XX XX F2 F5 XX XX F2 F4 MMXX XX E0 87 DA XX XX XX F7 FA XX XX 8A XX XX XX 8A XX XX XX 8A|9A XX XX XX E6 F1 XX XX 0D 02 E6 F1 XX XX F2 F5 $$0 DA XX60 9A XX XX XX E6 F1 XX XX 0D 02 E6 F1 MMXX XX F2 F5 $$0 DA</pattern>
+	<conversion>
+		<factor>1</factor>
+		<signed>false</signed>
+	</conversion>
+	<colAxis>
+		<id>NISTV16</id>
+	</colAxis>
+</map>

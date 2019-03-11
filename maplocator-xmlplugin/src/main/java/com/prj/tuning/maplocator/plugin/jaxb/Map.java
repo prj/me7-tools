@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;choice>
  *           &lt;element name="pattern" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
  *           &lt;element name="afterRowAxis" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
@@ -48,6 +49,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "map", propOrder = {
     "id",
+    "title",
     "pattern",
     "afterRowAxis",
     "afterColAxis",
@@ -61,6 +63,7 @@ public class Map {
 
     @XmlElement(required = true)
     protected String id;
+    protected String title;
     protected List<String> pattern;
     protected Boolean afterRowAxis;
     protected Boolean afterColAxis;
@@ -92,6 +95,30 @@ public class Map {
      */
     public void setId(String value) {
         this.id = value;
+    }
+
+    /**
+     * Gets the value of the title property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets the value of the title property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTitle(String value) {
+        this.title = value;
     }
 
     /**

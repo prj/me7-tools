@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="BMW-MAPS"
+	elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.bimmerforusm.com">
+	<xsd:complexType name="map">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:string"></xsd:element>
+			<xsd:choice>
+				<xsd:element name="pattern" type="xsd:string" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+				<xsd:element name="afterRowAxis" type="xsd:boolean" />
+				<xsd:element name="afterColAxis" type="xsd:boolean" />
+			</xsd:choice>
+			<xsd:element name="address" type="address" maxOccurs="1"
+				minOccurs="0">
+			</xsd:element>
+			<xsd:element name="conversion" type="conversion"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="length" type="length" maxOccurs="1"
+				minOccurs="0">
+			</xsd:element>
+			<xsd:element name="rowAxis" type="axisref" maxOccurs="1"
+				minOccurs="0" />
+			<xsd:element name="colAxis" type="axisref" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="map" type="map"></xsd:element>
+
+	<xsd:complexType name="address">
+		<xsd:sequence>
+			<xsd:element name="offset" type="xsd:int" maxOccurs="1"
+				minOccurs="0"></xsd:element>
+			<xsd:choice maxOccurs="1" minOccurs="0">
+				<xsd:element name="dpp" type="xsd:hexBinary"></xsd:element>
+				<xsd:element name="dppOffset" type="xsd:int"></xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="conversion">
+		<xsd:all>
+			<xsd:element name="factor" type="xsd:double" maxOccurs="1"
+				minOccurs="0"></xsd:element>
+			<xsd:element name="offset" type="xsd:double" maxOccurs="1"
+				minOccurs="0"></xsd:element>
+			<xsd:element name="width" type="width" maxOccurs="1"
+				minOccurs="0" />
+			<xsd:element name="endianness" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="HiLo" />
+						<xsd:enumeration value="LoHi" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="signed" type="xsd:boolean" maxOccurs="1"
+				minOccurs="0"></xsd:element>
+			<xsd:element name="alt" type="conversion" minOccurs="0"></xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+
+	<xsd:complexType name="length">
+		<xsd:choice>
+			<xsd:element name="hardcoded" type="xsd:integer" />
+			<xsd:sequence>
+				<xsd:element name="address" type="address" />
+				<xsd:element name="width" type="width" maxOccurs="1"
+					minOccurs="0" />
+			</xsd:sequence>
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="axisref">
+		<xsd:sequence>
+			<xsd:element type="xsd:string" name="id" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="width">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1" />
+			<xsd:maxInclusive value="2" />
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

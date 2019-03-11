@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>MLHFM</id>
+	<pattern>5C 14 D4 54 MMXX50 E6 XX FF FF F0</pattern>
+	<conversion>
+		<width>2</width>
+		<endianness>LoHi</endianness>
+		<factor>0.1</factor>
+	</conversion>
+	<length>
+		<hardcoded>512</hardcoded>
+	</length>
+</map>
