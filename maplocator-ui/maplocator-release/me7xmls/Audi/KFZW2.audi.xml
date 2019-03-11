@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>KFZW2</id>
+	<pattern>0D 2F E6 FC MMXX XX E6 FD XX XX F2 FE XX XX F2 FF XX XX DA 00 B8 78 XX18 E6 FC MMXX XX E6 FD XX XX F2 FE XX XX F2 FF XX XX DA 00 B8 78 XX70 46 F9 7F 00 XX20 46 F9 80 FF</pattern>
+	<conversion>
+		<factor>0.75</factor>
+		<signed>true</signed>
+	</conversion>
+	<rowAxis>
+		<id>SNM16ZUUB</id>
+	</rowAxis>
+	<colAxis>
+		<id>SRL12ZUUB</id>
+	</colAxis>
+</map>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>KRKTE</id>
+	<pattern>8E 92 74 7C 83 88 8C 8F XX 64 80 80 7F 7F 04 00 50 28 FF 28</pattern>
+	<conversion>
+		<endianness>LoHi</endianness>
+	</conversion>
+</map>

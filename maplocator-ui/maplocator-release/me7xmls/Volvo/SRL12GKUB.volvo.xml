@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>SRL12GKUB</id>
+	<pattern>E6 FC XX XX E6 FD XX XX C2 FE XX XX D7 40 XX XX F2 FF XX XX DA XX XX XX D7 40 XX XX F6 F4 XX XX DB 00</pattern>
+	<address>
+		<offset>2</offset>
+		<dppOffset>6</dppOffset>
+	</address>
+	<conversion>
+		<factor>0.75</factor>
+	</conversion>
+</map>

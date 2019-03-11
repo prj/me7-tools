@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map xmlns="http://prj-tuning.com/mapdef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://prj-tuning.com/mapdef mapdef.xsd ">
+	<id>KFFWL</id>
+	<pattern>1D 18 08 08 0D 19 26 32 4B 64 7D 96 1B 28 36 43 50 5E 6B 78 35 28 25 25 25 25 25 21 35 28 25 25 25 25 25 21 35 28 24 24 24 24 24 20 35 28 24 24 24 24 24 20 35 28 24 24 24 24 24 20 35 26 23 23 23 23 23 1F 35 26 23 23 23 23 23 1F 35 26 23 23 23 23 23 1F 06 0A 14 32 58 7D 96 0D 0D 0D 0D 0D 0D 08 18 25 33 40 5B 75 AB C5 00 00 00 00 00 00 00 00 08 18 25 33 40 5B 75 AB C5 3C 3C 3C 3C 3C 3C 3C 3C 04 03 08 12 23 00 00 00 00 08 0D 19 26</pattern>
+</map>
