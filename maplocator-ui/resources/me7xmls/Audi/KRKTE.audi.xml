@@ -8,7 +8,7 @@
 		<dppOffset>-2</dppOffset>
 	</address>
 	<conversion>
-		<factor>0.000167</factor>
+		<factor>0.000111111</factor>
 		<width>2</width>
 		<endianness>LoHi</endianness>
 	</conversion>
